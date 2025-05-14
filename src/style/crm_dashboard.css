@@ -1,0 +1,110 @@
+.main_container {
+    position: relative;
+    z-index: 1;
+    padding-top: 0;
+    padding: 0 20px 20px 20px;
+    font-family: Arial, sans-serif;
+}
+
+.ag-theme-alpine {
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+    /* Custom theme variables */
+    --ag-background-color: #f0eeee;
+    --ag-foreground-color: #131513;
+    --ag-row-hover-color: #e0f7e0;
+    /* --ag-header-background-color: #aae59e; */
+    --ag-header-background-color: #f54657;
+    /* --ag-header-foreground-color: #333; */
+    --ag-header-foreground-color: white;
+    text-align: center;
+}
+
+.ag-theme-alpine .ag-header-cell-label {
+    justify-content: center;
+    font-size: 15px;
+}
+
+.ag-theme-alpine .ag-floating-filter-input input {
+    color: black !important;
+    /* Text color */
+    background-color: white !important;
+    /* Optional: to ensure white background */
+}
+
+.title {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: -10px;
+}
+
+.title_p {
+    color: rgb(237, 9, 47);
+    font-weight: bold;
+    font-size: 35px;
+    text-shadow: 0 0 3px #FF0000;
+
+}
+
+.logo_content {
+    width: 100%;
+    height: 70px;
+    background-color: #eae7e7;
+    display: flex;
+    justify-content: end;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+
+}
+
+.logo_content img {
+    width: 150px;
+    padding: 10px;
+}
+
+.underline {
+    height: 10px;
+    background: linear-gradient(to right, #f7f7f7, #dcdcdc, #f7f7f7);
+    margin: 15px 0 0 0;
+    border-radius: 5px;
+}
+
+/* .underline {
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(to right, #ccc, #999, #ccc);
+    margin: 10px 0 20px 0;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+} */
+
+.ag-theme-alpine .ag-cell {
+    border-right: 1px solid #ccc;
+    /* Right border for each cell */
+}
+
+.ag-theme-alpine .ag-row {
+    border-bottom: 1px solid #eee;
+    /* Optional: row separation */
+}
+
+.ag-theme-alpine .ag-header-cell {
+    border-right: 1px solid #ccc;
+    /* Header cell border */
+}
+.action_btn{
+    width: 120px;
+    height: 30px;
+    background-color: #f76674;
+    font-size: 14px;
+    font-weight: bold;
+    border-color: #f63246;
+    border-radius: 10px;
+    color: white;
+    
+}
+.action_btn:hover{
+    background-color: #ef192e;
+    width: 125;
+    height: 35px;
+}

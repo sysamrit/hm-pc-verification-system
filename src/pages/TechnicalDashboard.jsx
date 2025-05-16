@@ -153,7 +153,7 @@ function TechnicalDashboard() {
 
     useEffect(() => {
         axios
-            .get(`${process.env.REACT_APP_BASE_URL2}/hmpc/gethmpcdata`)
+            .get(`${process.env.REACT_APP_BASE_URL2}/hmpc/gethmpctechdata`)
             .then((res) => {
                 console.log(res.data.data);
                 setRowData(res.data.data);

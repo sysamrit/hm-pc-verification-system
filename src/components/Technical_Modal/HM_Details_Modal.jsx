@@ -122,7 +122,7 @@ function HM_Details_Modal({ toggleContainerHmPc, hm_pc_id, hm_pc_data }) {
         <>
             <div className='view_container'>
                 <div>
-                    <h4 className="heading_contant">HM-PC Details</h4>
+                    <h4 className="heading_contant">HM Details</h4>
                     <hr className="header-line" />
                 </div>
                 <div className='sub_div'>
@@ -154,7 +154,7 @@ function HM_Details_Modal({ toggleContainerHmPc, hm_pc_id, hm_pc_data }) {
                         </div>
                         <div className="fields">
                             <label>HM Aadhaar Card Number</label>
-                            <input type="number" name="hm_aadhaar_card_no" id="hm_aadhaar_card_no" value={formData.hm_aadhaar_card_no || ""} onChange={handleInputChange} readOnly />
+                            <input type="text" name="hm_aadhaar_card_no" id="hm_aadhaar_card_no" value={formData.hm_aadhaar_card_no || ""} onChange={handleInputChange} readOnly />
                         </div>
                         <div className="view_btn_container">
                             <button className="view-btn" onClick={clickAadhaar}>View Aadhaar Card Photo </button>
@@ -181,7 +181,7 @@ function HM_Details_Modal({ toggleContainerHmPc, hm_pc_id, hm_pc_data }) {
              
                         <div className="fields">
                             <label>HM DOB</label>
-                            <input type="number" name="dob_of_hm" id="dob_of_hm" value={formData.dob_of_hm || ""} onChange={handleInputChange} readOnly />
+                            <input type="text" name="dob_of_hm" id="dob_of_hm" value={formData.dob_of_hm || ""} onChange={handleInputChange} readOnly />
                         </div>
 
 

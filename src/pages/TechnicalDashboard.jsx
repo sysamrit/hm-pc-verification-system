@@ -58,6 +58,8 @@ function TechnicalDashboard() {
 
 
     const columnDefs = [
+        { headerName: "HM-PC ID", field: "hm_pc_id" },
+
         {
             headerName: "TimeStamp",
             field: "timestamp",
@@ -111,10 +113,6 @@ function TechnicalDashboard() {
             )
         },
         { headerName: "DOB of PC", field: "dob_of_pc" },
-        { headerName: "Code of HM", field: "code_of_hm" },
-        { headerName: "Code of PC", field: "code_of_pc" },
-        { headerName: "Status", field: "technical_ver" },
-        { headerName: "Verification Date", field: "verify_date" },
         { headerName: "HM Bank Name", field: "hm_bank_name" },
         { headerName: "HM Branch Name", field: "hm_branch_name" },
         { headerName: "HM IFSC Code", field: "hm_ifsc_code" },
@@ -122,6 +120,10 @@ function TechnicalDashboard() {
         { headerName: "PC Branch Name", field: "pc_branch_name" },
         { headerName: "PC IFSC Code", field: "pc_ifsc_code" },
         { headerName: "Remarks", field: "remarks_crm" },
+        { headerName: "Code of HM", field: "code_of_hm" },
+        { headerName: "Code of PC", field: "code_of_pc" },
+        { headerName: "Status", field: "technical_ver" },
+        { headerName: "Verification Date", field: "verify_date" },
         {
             headerName: "Action",
             field: "action",
@@ -131,7 +133,7 @@ function TechnicalDashboard() {
                 return (
                     <button
                         onClick={() => handleActionClick(params.data)}
-                        className='action_btn'
+                        className='action_btn_tech'
                         disabled={isDisabled}
                     >
                         Action
@@ -146,7 +148,7 @@ function TechnicalDashboard() {
         filter: true,
         floatingFilter: true,
         resizable: true,
-        editable: true,
+        // editable: true,
     }), []);
 
     useEffect(() => {
@@ -171,9 +173,9 @@ function TechnicalDashboard() {
             </div>
             {/* <div className="underline"></div> */}
             <div className="title">
-                <p className="title_p">HM-PC Verification for Technical</p>
+                <p className="title_t">HM-PC Verification for Technical</p>
             </div>
-            <div className="ag-theme-alpine" style={{ height: '100vh', width: '100%' }}>
+            <div className="ag-theme-alpine technical_table" style={{ height: '100vh', width: '100%' }}>
 
                 {rowData && <AgGridReact
                     rowData={rowData}
@@ -203,7 +205,7 @@ function TechnicalDashboard() {
                 />
             )}
             {isVisibleModal && kycDetails === "Both Of Them" && (
-                <HM_PC_Details_Modal
+                <PC_Details_Modal
                     toggleContainerHmPc={hideModal}
                     hm_pc_data={hmpcData}
                     hm_pc_id={hm_pc_id}

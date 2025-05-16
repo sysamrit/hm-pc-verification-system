@@ -50,7 +50,7 @@ function PC_Details_Modal({ toggleContainerHmPc, hm_pc_id, hm_pc_data }) {
             // ...formData,
             timestamp: formatted_date,
             hm_pc_id: hm_pc_id,
-            remarks:remarks,
+            remarks: remarks,
         };
         await sendRemarks(completeData, "Verified");
         setLoading(false);
@@ -59,7 +59,7 @@ function PC_Details_Modal({ toggleContainerHmPc, hm_pc_id, hm_pc_data }) {
         window.location.reload();
     }
 
-    const clickReject = async() => {
+    const clickReject = async () => {
         const remarks = prompt("Please Enter Remarks");
         if (remarks == null || remarks.trim() == "") {
             alert("Remarks is required");
@@ -72,7 +72,7 @@ function PC_Details_Modal({ toggleContainerHmPc, hm_pc_id, hm_pc_data }) {
             // ...formData,
             timestamp: formatted_date,
             hm_pc_id: hm_pc_id,
-            remarks:remarks,
+            remarks: remarks,
         };
         await sendRemarks(completeData, "Rejected");
         setLoading(false);
@@ -177,14 +177,13 @@ function PC_Details_Modal({ toggleContainerHmPc, hm_pc_id, hm_pc_data }) {
                             <label>PC IFSC Code</label>
                             <input type="text" name="pc_ifsc_code" id="pc_ifsc_code" value={formData.pc_ifsc_code || ""} onChange={handleInputChange} readOnly />
                         </div>
-               
+
                         <div className="fields">
                             <label>PC DOB</label>
                             <input type="number" name="dob_of_pc" id="dob_of_pc" value={formData.dob_of_pc || ""} onChange={handleInputChange} readOnly />
                         </div>
 
                     </div>
-
 
                     <div className='button-container'>
                         <button className="accept_btn" type='button' onClick={clickVerified}>

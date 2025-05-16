@@ -208,6 +208,13 @@
 
 }
 
+.loading-indicator-container{
+    display: flex;
+    position: absolute;
+    top: 50%;
+    left: 45%;
+}
+
 .rowmaterial_details_container {
     /* display: grid;
     grid-template-columns: 1fr 1fr; */

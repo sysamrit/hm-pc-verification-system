@@ -29,13 +29,13 @@ function CrmDashboard() {
         setHm_pc_id(hm_pc_id);
         fetchHm_PcData(hm_pc_id);
     };
+
     const hideModal = () => {
         setIsVisibleModal(false);
     }
 
-
     const fetchHm_PcData = async (hm_pc_id) => {
-        console.log(hm_pc_id)
+        console.log(hm_pc_id);
         try {
             const response = await axios.get(
                 `${process.env.REACT_APP_BASE_URL2}/hmpc/gethmpcdatabyid/${hm_pc_id}`
@@ -56,8 +56,9 @@ function CrmDashboard() {
     //         .catch((err) => console.error(err));
     // }, [hm_pc_id]);
 
-
     const columnDefs = [
+        { headerName: "HM-PC ID", field: "hm_pc_id" },
+
         {
             headerName: "TimeStamp",
             field: "timestamp",
@@ -111,10 +112,6 @@ function CrmDashboard() {
             )
         },
         { headerName: "DOB of PC", field: "dob_of_pc" },
-        { headerName: "Code of HM", field: "code_of_hm" },
-        { headerName: "Code of PC", field: "code_of_pc" },
-        { headerName: "Status", field: "crm_ver" },
-        { headerName: "Verification Date", field: "verify_date" },
         { headerName: "HM Bank Name", field: "hm_bank_name" },
         { headerName: "HM Branch Name", field: "hm_branch_name" },
         { headerName: "HM IFSC Code", field: "hm_ifsc_code" },
@@ -122,6 +119,10 @@ function CrmDashboard() {
         { headerName: "PC Branch Name", field: "pc_branch_name" },
         { headerName: "PC IFSC Code", field: "pc_ifsc_code" },
         { headerName: "Remarks", field: "remarks_crm" },
+        { headerName: "Code of HM", field: "code_of_hm" },
+        { headerName: "Code of PC", field: "code_of_pc" },
+        { headerName: "Status", field: "crm_ver" },
+        { headerName: "Verification Date", field: "verify_date" },
         {
             headerName: "Action",
             field: "action",
@@ -147,7 +148,7 @@ function CrmDashboard() {
         filter: true,
         floatingFilter: true,
         resizable: true,
-        editable: true,
+        // editable: true,
     }), []);
 
     useEffect(() => {
@@ -174,7 +175,7 @@ function CrmDashboard() {
             <div className="title">
                 <p className="title_p">HM-PC Verification for CRM</p>
             </div>
-            <div className="ag-theme-alpine" style={{ height: '100vh', width: '100%' }}>
+            <div className="ag-theme-alpine crm_table" style={{ height: '100vh', width: '100%' }}>
 
                 {rowData && <AgGridReact
                     rowData={rowData}
@@ -204,7 +205,7 @@ function CrmDashboard() {
                 />
             )}
             {isVisibleModal && kycDetails === "Both Of Them" && (
-                <HM_PC_Modal
+                <PC_Details_Modal
                     toggleContainerHmPc={hideModal}
                     hm_pc_data={hmpcData}
                     hm_pc_id={hm_pc_id}

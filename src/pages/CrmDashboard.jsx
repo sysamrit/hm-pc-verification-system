@@ -47,15 +47,6 @@ function CrmDashboard() {
         }
     };
 
-    // useEffect(() => {
-    //     axios.get(`${process.env.REACT_APP_BASE_URL2}/hmpccrm/gethmpccrmdatabyid/${hm_pc_id}`)
-    //         .then((res) => {
-    //             console.log(res.data.data);
-    //             setFormData(res.data.data[0]);
-    //         })
-    //         .catch((err) => console.error(err));
-    // }, [hm_pc_id]);
-
     const columnDefs = [
         { headerName: "HM-PC ID", field: "hm_pc_id" },
 
@@ -128,7 +119,7 @@ function CrmDashboard() {
             field: "action",
             cellRenderer: (params) => {
                 const isDisabled = params.data.crm_ver === "Verified" || params.data.crm_ver === "Rejected";
-        
+
                 return (
                     <button
                         onClick={() => handleActionClick(params.data)}
@@ -140,7 +131,7 @@ function CrmDashboard() {
                 );
             }
         }
-        
+
     ];
 
     const defaultColDef = useMemo(() => ({

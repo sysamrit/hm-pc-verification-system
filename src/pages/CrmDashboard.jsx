@@ -113,7 +113,7 @@ function CrmDashboard() {
         { headerName: "Code of HM", field: "code_of_hm" },
         { headerName: "Code of PC", field: "code_of_pc" },
         { headerName: "Status", field: "crm_ver" },
-        { headerName: "Verification Date", field: "verify_date" },
+        { headerName: "Verification Date", field: "verify_date_crm" },
         {
             headerName: "Action",
             field: "action",

@@ -123,7 +123,7 @@ function TechnicalDashboard() {
         { headerName: "Code of HM", field: "code_of_hm" },
         { headerName: "Code of PC", field: "code_of_pc" },
         { headerName: "Status", field: "technical_ver" },
-        { headerName: "Verification Date", field: "verify_date" },
+        { headerName: "Verification Date", field: "verify_date_tech" },
         {
             headerName: "Action",
             field: "action",

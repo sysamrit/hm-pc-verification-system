@@ -7,15 +7,15 @@ import 'ag-grid-community/styles/ag-theme-alpine.css';
 import "../style/crm_dashboard.css";
 import logo_img from "../assets/LOGO.png";
 import axios from 'axios';
-import HM_PC_Modal from '../components/HM_PC_Modal';
 import PC_Details_Modal from '../components/PC_Details_Modal';
 import HM_Details_Modal from '../components/HM_Details_Modal';
+import noData from '../assets/no_data_2_amico.svg';
 
 ModuleRegistry.registerModules([AllCommunityModule]);
 
 function CrmDashboard() {
     const gridRef = useRef();
-    const [rowData, setRowData] = useState(null);
+    const [rowData, setRowData] = useState([]);
     const [isVisibleModal, setIsVisibleModal] = useState(false);
     const [hm_pc_id, setHm_pc_id] = useState("");
     const [hmpcData, setHmpcData] = useState();
@@ -166,19 +166,33 @@ function CrmDashboard() {
             <div className="title">
                 <p className="title_p">HM-PC Verification for CRM</p>
             </div>
-            <div className="ag-theme-alpine crm_table" style={{ height: '100vh', width: '100%' }}>
+            {rowData.length != 0 ? (
+                <div className="ag-theme-alpine crm_table" style={{ height: '100vh', width: '100%' }}>
 
-                {rowData && <AgGridReact
-                    rowData={rowData}
-                    columnDefs={columnDefs}
-                    defaultColDef={defaultColDef}
-                    theme="legacy"
-                    rowSelection="multiple"
-                    animateRows={true}
-                    pagination={true}
-                    paginationPageSize={50}
-                />}
-            </div>
+                    {rowData && <AgGridReact
+                        rowData={rowData}
+                        columnDefs={columnDefs}
+                        defaultColDef={defaultColDef}
+                        theme="legacy"
+                        rowSelection="multiple"
+                        animateRows={true}
+                        pagination={true}
+                        paginationPageSize={50}
+                    />}
+                </div>
+            ) : (
+                <div className="no-data-sec">
+                    <div className="container">
+                        <div className="no-data-found">
+                            <h3>No Data Found</h3>
+                            <a href="#" className="no-data-img">
+                                <img src={noData} alt="no-data-img" />
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            )
+            }
 
             {isVisibleModal && kycDetails === "HM" && (
                 <HM_Details_Modal

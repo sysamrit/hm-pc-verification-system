@@ -63,45 +63,80 @@ function CrmDashboard() {
         { headerName: "HM Name", field: "hm_name" },
         { headerName: "HM Mobile Number", field: "hm_mobile_no" },
         { headerName: "HM Aadhaar Card Number", field: "hm_aadhaar_card_no" },
-        // { headerName: "HM Aadhaar Card Picture", field: "hm_aadhaar_card_pic" },
         {
             headerName: "HM Aadhaar Card Picture",
             field: "hm_aadhaar_card_pic",
-            cellRenderer: params => (
-                <a href={params.value} target="_blank" rel="noopener noreferrer">View</a>
-            )
+            cellRenderer: (params) => {
+                const link = params.value;
+                return link && link !== "" ? (
+                    <a href={link} target="_blank" rel="noopener noreferrer">
+                        View
+                    </a>
+                ) : (
+                    "N/A"
+                );
+            }
         },
+
         { headerName: "HM Bank Account Number", field: "hm_bank_account_no" },
-        // { headerName: "HM Bank Passbook Picture", field: "hm_bank_pass_pic" },
+        // {
+        //     headerName: "HM Bank Passbook Picture",
+        //     field: "hm_bank_pass_pic",
+        //     cellRenderer: params => (
+        //         <a href={params.value} target="_blank" rel="noopener noreferrer">View</a>
+        //     )
+        // },
+
         {
             headerName: "HM Bank Passbook Picture",
             field: "hm_bank_pass_pic",
-            cellRenderer: params => (
-                <a href={params.value} target="_blank" rel="noopener noreferrer">View</a>
-            )
+            cellRenderer: (params) => {
+                const link = params.value;
+                return link && link !== "" ? (
+                    <a href={link} target="_blank" rel="noopener noreferrer">
+                        View
+                    </a>
+                ) : (
+                    "N/A"
+                );
+            }
         },
+
         { headerName: "DOB of HM", field: "dob_of_hm" },
         { headerName: "PC Name", field: "pc_name" },
 
         { headerName: "PC Mobile Number", field: "pc_mobile_no" },
         { headerName: "PC Aadhaar Card Number", field: "pc_aadhaar_card_no" },
-        // { headerName: "PC Aadhaar Card Picture", field: "pc_aadhaar_card_pic" },
         {
             headerName: "PC Aadhaar Card Picture",
             field: "pc_aadhaar_card_pic",
-            cellRenderer: params => (
-                <a href={params.value} target="_blank" rel="noopener noreferrer">View</a>
-            )
+            cellRenderer: (params) => {
+                const link = params.value;
+                return link && link !== "" ? (
+                    <a href={link} target="_blank" rel="noopener noreferrer">
+                        View
+                    </a>
+                ) : (
+                    "N/A"
+                );
+            }
         },
         { headerName: "PC Bank Account Number", field: "pc_bank_account_no" },
-        // { headerName: "PC bank Passbook Picture", field: "pc_bank_pass_pic" },
         {
             headerName: "PC Bank Passbook Picture",
             field: "pc_bank_pass_pic",
-            cellRenderer: params => (
-                <a href={params.value} target="_blank" rel="noopener noreferrer">View</a>
-            )
+            cellRenderer: (params) => {
+                const link = params.value;
+                return link && link !== "" ? (
+                    <a href={link} target="_blank" rel="noopener noreferrer">
+                        View
+                    </a>
+                ) : (
+                    "N/A"
+                );
+            }
         },
+
         { headerName: "DOB of PC", field: "dob_of_pc" },
         { headerName: "HM Bank Name", field: "hm_bank_name" },
         { headerName: "HM Branch Name", field: "hm_branch_name" },

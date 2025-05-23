@@ -73,22 +73,34 @@ function TechnicalDashboard() {
         { headerName: "HM Name", field: "hm_name" },
         { headerName: "HM Mobile Number", field: "hm_mobile_no" },
         { headerName: "HM Aadhaar Card Number", field: "hm_aadhaar_card_no" },
-        // { headerName: "HM Aadhaar Card Picture", field: "hm_aadhaar_card_pic" },
         {
             headerName: "HM Aadhaar Card Picture",
             field: "hm_aadhaar_card_pic",
-            cellRenderer: params => (
-                <a href={params.value} target="_blank" rel="noopener noreferrer">View</a>
-            )
+            cellRenderer: (params) => {
+                const link = params.value;
+                return link && link !== "" ? (
+                    <a href={link} target="_blank" rel="noopener noreferrer">
+                        View
+                    </a>
+                ) : (
+                    "N/A"
+                );
+            }
         },
         { headerName: "HM Bank Account Number", field: "hm_bank_account_no" },
-        // { headerName: "HM Bank Passbook Picture", field: "hm_bank_pass_pic" },
         {
             headerName: "HM Bank Passbook Picture",
             field: "hm_bank_pass_pic",
-            cellRenderer: params => (
-                <a href={params.value} target="_blank" rel="noopener noreferrer">View</a>
-            )
+            cellRenderer: (params) => {
+                const link = params.value;
+                return link && link !== "" ? (
+                    <a href={link} target="_blank" rel="noopener noreferrer">
+                        View
+                    </a>
+                ) : (
+                    "N/A"
+                );
+            }
         },
         { headerName: "DOB of HM", field: "dob_of_hm" },
         { headerName: "PC Name", field: "pc_name" },
@@ -99,18 +111,32 @@ function TechnicalDashboard() {
         {
             headerName: "PC Aadhaar Card Picture",
             field: "pc_aadhaar_card_pic",
-            cellRenderer: params => (
-                <a href={params.value} target="_blank" rel="noopener noreferrer">View</a>
-            )
+            cellRenderer: (params) => {
+                const link = params.value;
+                return link && link !== "" ? (
+                    <a href={link} target="_blank" rel="noopener noreferrer">
+                        View
+                    </a>
+                ) : (
+                    "N/A"
+                );
+            }
         },
         { headerName: "PC Bank Account Number", field: "pc_bank_account_no" },
         // { headerName: "PC bank Passbook Picture", field: "pc_bank_pass_pic" },
         {
             headerName: "PC Bank Passbook Picture",
             field: "pc_bank_pass_pic",
-            cellRenderer: params => (
-                <a href={params.value} target="_blank" rel="noopener noreferrer">View</a>
-            )
+            cellRenderer: (params) => {
+                const link = params.value;
+                return link && link !== "" ? (
+                    <a href={link} target="_blank" rel="noopener noreferrer">
+                        View
+                    </a>
+                ) : (
+                    "N/A"
+                );
+            }
         },
         { headerName: "DOB of PC", field: "dob_of_pc" },
         { headerName: "HM Bank Name", field: "hm_bank_name" },
@@ -178,17 +204,17 @@ function TechnicalDashboard() {
             {rowData.length != 0 ? (
                 <div className="ag-theme-alpine technical_table" style={{ height: '100vh', width: '100%' }}>
 
-                {rowData && <AgGridReact
-                    rowData={rowData}
-                    columnDefs={columnDefs}
-                    defaultColDef={defaultColDef}
-                    theme="legacy"
-                    rowSelection="multiple"
-                    animateRows={true}
-                    pagination={true}
-                    paginationPageSize={50}
-                />}
-            </div>
+                    {rowData && <AgGridReact
+                        rowData={rowData}
+                        columnDefs={columnDefs}
+                        defaultColDef={defaultColDef}
+                        theme="legacy"
+                        rowSelection="multiple"
+                        animateRows={true}
+                        pagination={true}
+                        paginationPageSize={50}
+                    />}
+                </div>
             ) : (
                 <div className="no-data-sec">
                     <div className="container">

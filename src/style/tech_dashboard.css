@@ -21,6 +21,21 @@
     text-align: center;
 }
 
+.master_table{
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+    /* Custom theme variables */
+    --ag-background-color: #f0eeee;
+    --ag-foreground-color: #131513;
+    --ag-row-hover-color: #f7e0e4;
+    /* --ag-header-background-color: #aae59e; */
+    --ag-header-background-color: #2c97f5;
+    /* --ag-header-foreground-color: #333; */
+    --ag-header-foreground-color: white;
+    text-align: center;
+}
+
 /* .ag-theme-alpine {
     padding: 20px;
     border-radius: 10px;
@@ -68,6 +83,14 @@
 .title_t {
     /* color: rgb(237, 9, 47); */
     color: #f05724;
+    font-weight: bold;
+    font-size: 35px;
+    text-shadow: 0 0 3px #FF0000;
+
+}
+.title_master {
+    /* color: rgb(237, 9, 47); */
+    color: #3824f0;
     font-weight: bold;
     font-size: 35px;
     text-shadow: 0 0 3px #FF0000;
@@ -134,4 +157,9 @@
     background-color: #2bef19;
     width: 125;
     height: 35px;
+}
+
+.total_pending_master{
+    display: flex;
+    justify-content: space-between;
 }

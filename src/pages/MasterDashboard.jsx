@@ -4,23 +4,26 @@ import { AllCommunityModule, ModuleRegistry } from 'ag-grid-community';
 // import 'ag-grid-community/styles/ag-theme-quartz.css';
 import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-alpine.css';
-import "../style/crm_dashboard.css";
+import "../style/tech_dashboard.css";
 import logo_img from "../assets/LOGO.png";
 import axios from 'axios';
-import PC_Details_Modal from '../components/PC_Details_Modal';
-import HM_Details_Modal from '../components/HM_Details_Modal';
+import PC_Details_Modal from '../components/Technical_Modal/PC_Details_Modal';
+import HM_Details_Modal from '../components/Technical_Modal/HM_Details_Modal';
 import noData from '../assets/no_data_2_amico.svg';
+import Hm_Details_View from '../components/Master_Modal/Hm_Details_View';
+import Pc_Details_View from '../components/Master_Modal/Pc_Details_View';
 
 ModuleRegistry.registerModules([AllCommunityModule]);
 
-function CrmDashboard() {
+function MasterDashboard() {
     const gridRef = useRef();
     const [rowData, setRowData] = useState([]);
     const [isVisibleModal, setIsVisibleModal] = useState(false);
     const [hm_pc_id, setHm_pc_id] = useState("");
     const [hmpcData, setHmpcData] = useState();
     const [kycDetails, setKycDetails] = useState("");
-    const [totalPendingData, setTotalPendingData] = useState("");
+    const [totalPendingCrm, setTotalPendingCrm] = useState("");
+    const [totalPendingTech, setTotalPendingTech] = useState("");
 
     const handleActionClick = (rowData) => {
         setIsVisibleModal(true);
@@ -30,13 +33,13 @@ function CrmDashboard() {
         setHm_pc_id(hm_pc_id);
         fetchHm_PcData(hm_pc_id);
     };
-
     const hideModal = () => {
         setIsVisibleModal(false);
     }
 
+
     const fetchHm_PcData = async (hm_pc_id) => {
-        console.log(hm_pc_id);
+        console.log(hm_pc_id)
         try {
             const response = await axios.get(
                 `${process.env.REACT_APP_BASE_URL2}/hmpc/gethmpcdatabyid/${hm_pc_id}`
@@ -47,6 +50,16 @@ function CrmDashboard() {
             console.error("Error fetching HM-PC data:", error);
         }
     };
+
+    // useEffect(() => {
+    //     axios.get(`${process.env.REACT_APP_BASE_URL2}/hmpccrm/gethmpccrmdatabyid/${hm_pc_id}`)
+    //         .then((res) => {
+    //             console.log(res.data.data);
+    //             setFormData(res.data.data[0]);
+    //         })
+    //         .catch((err) => console.error(err));
+    // }, [hm_pc_id]);
+
 
     const columnDefs = [
         { headerName: "HM-PC ID", field: "hm_pc_id" },
@@ -78,16 +91,7 @@ function CrmDashboard() {
                 );
             }
         },
-
         { headerName: "HM Bank Account Number", field: "hm_bank_account_no" },
-        // {
-        //     headerName: "HM Bank Passbook Picture",
-        //     field: "hm_bank_pass_pic",
-        //     cellRenderer: params => (
-        //         <a href={params.value} target="_blank" rel="noopener noreferrer">View</a>
-        //     )
-        // },
-
         {
             headerName: "HM Bank Passbook Picture",
             field: "hm_bank_pass_pic",
@@ -102,12 +106,12 @@ function CrmDashboard() {
                 );
             }
         },
-
         { headerName: "DOB of HM", field: "dob_of_hm" },
         { headerName: "PC Name", field: "pc_name" },
 
         { headerName: "PC Mobile Number", field: "pc_mobile_no" },
         { headerName: "PC Aadhaar Card Number", field: "pc_aadhaar_card_no" },
+        // { headerName: "PC Aadhaar Card Picture", field: "pc_aadhaar_card_pic" },
         {
             headerName: "PC Aadhaar Card Picture",
             field: "pc_aadhaar_card_pic",
@@ -123,6 +127,7 @@ function CrmDashboard() {
             }
         },
         { headerName: "PC Bank Account Number", field: "pc_bank_account_no" },
+        // { headerName: "PC bank Passbook Picture", field: "pc_bank_pass_pic" },
         {
             headerName: "PC Bank Passbook Picture",
             field: "pc_bank_pass_pic",
@@ -137,7 +142,6 @@ function CrmDashboard() {
                 );
             }
         },
-
         { headerName: "DOB of PC", field: "dob_of_pc" },
         { headerName: "HM Bank Name", field: "hm_bank_name" },
         { headerName: "HM Branch Name", field: "hm_branch_name" },
@@ -145,29 +149,31 @@ function CrmDashboard() {
         { headerName: "PC Bank Name", field: "pc_bank_name" },
         { headerName: "PC Branch Name", field: "pc_branch_name" },
         { headerName: "PC IFSC Code", field: "pc_ifsc_code" },
-        { headerName: "Remarks", field: "remarks_crm" },
+        { headerName: "Remarks of Technical", field: "remarks_tech" },
+        { headerName: "Remarks of CRM", field: "remarks_crm" },
         { headerName: "Code of HM", field: "code_of_hm" },
         { headerName: "Code of PC", field: "code_of_pc" },
-        { headerName: "Status", field: "crm_ver" },
-        { headerName: "Verification Date", field: "verify_date_crm" },
+        { headerName: "Status of Technical", field: "technical_ver" },
+        { headerName: "Status of CRM", field: "crm_ver" },
+        { headerName: "Verification Date of Technical", field: "verify_date_tech" },
+        { headerName: "Verification Date of CRM", field: "verify_date_tech" },
         {
-            headerName: "Action",
-            field: "action",
+            headerName: "View",
+            field: "view",
             cellRenderer: (params) => {
-                const isDisabled = params.data.crm_ver === "Verified" || params.data.crm_ver === "Rejected";
+                // const isDisabled = params.data.technical_ver === "Verified" || params.data.technical_ver === "Rejected";
 
                 return (
                     <button
                         onClick={() => handleActionClick(params.data)}
-                        className='action_btn'
-                        disabled={isDisabled}
+                        className='action_btn_tech'
+                        // disabled={isDisabled}
                     >
                         Action
                     </button>
                 );
             }
         }
-
     ];
 
     const defaultColDef = useMemo(() => ({
@@ -180,7 +186,7 @@ function CrmDashboard() {
 
     useEffect(() => {
         axios
-            .get(`${process.env.REACT_APP_BASE_URL2}/hmpc/gethmpccrmdata`)
+            .get(`${process.env.REACT_APP_BASE_URL2}/hmpc/gethmpctechdata`)
             .then((res) => {
                 console.log(res.data.data);
                 setRowData(res.data.data);
@@ -195,12 +201,11 @@ function CrmDashboard() {
             .get(`${process.env.REACT_APP_BASE_URL2}/hmpc/gethmpcpendingdata`)
             .then((res) => {
                 console.log(res.data.data);
-                setTotalPendingData(res.data.data.pending_crm_ver);
-                // setHm_pc_id(res.data.data.hm_pc_id);
+                setTotalPendingCrm(res.data.data.pending_crm_ver);
+                setTotalPendingTech(res.data.data.pending_tech_ver);
             })
             .catch((err) => console.error(err));
     }, []);
-
 
     return (
         <div className='main_container'>
@@ -212,13 +217,14 @@ function CrmDashboard() {
             </div>
             {/* <div className="underline"></div> */}
             <div className="title">
-                <p className="title_p">HM-PC Verification for CRM</p>
+                <p className="title_master">HM-PC Verification - Master Dashboard</p>
             </div>
-            <div className="total_pending">
-                <p className='pending_txt'>Total Pending : {totalPendingData} </p>
+            <div className="total_pending_master">
+                <p className='pending_txt'>Total Pending of Tech : {totalPendingTech} </p>
+                <p className='pending_txt'>Total Pending of CRM: {totalPendingCrm} </p>
             </div>
             {rowData.length != 0 ? (
-                <div className="ag-theme-alpine crm_table" style={{ height: '100vh', width: '100%' }}>
+                <div className="ag-theme-alpine master_table" style={{ height: '100vh', width: '100%' }}>
 
                     {rowData && <AgGridReact
                         rowData={rowData}
@@ -244,9 +250,8 @@ function CrmDashboard() {
                 </div>
             )
             }
-
             {isVisibleModal && kycDetails === "HM" && (
-                <HM_Details_Modal
+                <Hm_Details_View
                     toggleContainerHmPc={hideModal}
                     hm_pc_data={hmpcData}
                     hm_pc_id={hm_pc_id}
@@ -254,14 +259,14 @@ function CrmDashboard() {
             )}
 
             {isVisibleModal && kycDetails === "PC" && (
-                <PC_Details_Modal
+                <Pc_Details_View
                     toggleContainerHmPc={hideModal}
                     hm_pc_data={hmpcData}
                     hm_pc_id={hm_pc_id}
                 />
             )}
             {isVisibleModal && kycDetails === "Both Of Them" && (
-                <PC_Details_Modal
+                <Pc_Details_View
                     toggleContainerHmPc={hideModal}
                     hm_pc_data={hmpcData}
                     hm_pc_id={hm_pc_id}
@@ -272,4 +277,5 @@ function CrmDashboard() {
     );
 }
 
-export default CrmDashboard;
+
+export default MasterDashboard

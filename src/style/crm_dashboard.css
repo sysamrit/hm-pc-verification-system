@@ -134,3 +134,9 @@
     width: 125;
     height: 35px;
 }
+
+.pending_txt{
+    font-weight: bold;
+    font-family:'Times New Roman', Times, serif;
+    font-size: 22px;
+}

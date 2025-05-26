@@ -20,6 +20,7 @@ function TechnicalDashboard() {
     const [hm_pc_id, setHm_pc_id] = useState("");
     const [hmpcData, setHmpcData] = useState();
     const [kycDetails, setKycDetails] = useState("");
+    const [totalPendingData, setTotalPendingData] = useState("");
 
     const handleActionClick = (rowData) => {
         setIsVisibleModal(true);
@@ -145,7 +146,7 @@ function TechnicalDashboard() {
         { headerName: "PC Bank Name", field: "pc_bank_name" },
         { headerName: "PC Branch Name", field: "pc_branch_name" },
         { headerName: "PC IFSC Code", field: "pc_ifsc_code" },
-        { headerName: "Remarks", field: "remarks_crm" },
+        { headerName: "Remarks", field: "remarks_tech" },
         { headerName: "Code of HM", field: "code_of_hm" },
         { headerName: "Code of PC", field: "code_of_pc" },
         { headerName: "Status", field: "technical_ver" },
@@ -188,6 +189,18 @@ function TechnicalDashboard() {
             .catch((err) => console.error(err));
     }, []);
 
+        //Total Pening API
+        useEffect(() => {
+            axios
+                .get(`${process.env.REACT_APP_BASE_URL2}/hmpc/gethmpcpendingdata`)
+                .then((res) => {
+                    console.log(res.data.data);
+                    setTotalPendingData(res.data.data.pending_tech_ver);
+                    // setHm_pc_id(res.data.data.hm_pc_id);
+                })
+                .catch((err) => console.error(err));
+        }, []);
+
 
     return (
         <div className='main_container'>
@@ -200,6 +213,9 @@ function TechnicalDashboard() {
             {/* <div className="underline"></div> */}
             <div className="title">
                 <p className="title_t">HM-PC Verification for Technical</p>
+            </div>
+            <div className="total_pending">
+                <p className='pending_txt'>Total Pending : {totalPendingData} </p>
             </div>
             {rowData.length != 0 ? (
                 <div className="ag-theme-alpine technical_table" style={{ height: '100vh', width: '100%' }}>

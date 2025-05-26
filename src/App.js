@@ -5,6 +5,7 @@ import './App.css';
 
 import CrmDashboard from './pages/CrmDashboard';
 import TechnicalDashboard from './pages/TechnicalDashboard';
+import MasterDashboard from './pages/MasterDashboard';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Routes>
           <Route path="/ihb/crm_dashboard" element={<CrmDashboard />} />
           <Route path="/ihb/technical_dashboard" element={<TechnicalDashboard />} />
+          <Route path="/ihb/master_dashboard" element={<MasterDashboard />} />
         </Routes>
       </div>
     </div>

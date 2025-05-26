@@ -14,7 +14,7 @@ function App() {
         <Routes>
           <Route path="/ihb/crm_dashboard" element={<CrmDashboard />} />
           <Route path="/ihb/technical_dashboard" element={<TechnicalDashboard />} />
-          <Route path="/ihb/master_dashboard" element={<MasterDashboard />} />
+          <Route path="/ihb/master/master_dashboard" element={<MasterDashboard />} />
         </Routes>
       </div>
     </div>

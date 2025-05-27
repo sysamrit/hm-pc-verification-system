@@ -10,6 +10,7 @@ import axios from 'axios';
 import PC_Details_Modal from '../components/Technical_Modal/PC_Details_Modal';
 import HM_Details_Modal from '../components/Technical_Modal/HM_Details_Modal';
 import noData from '../assets/no_data_2_amico.svg';
+import { Commet } from "react-loading-indicators";
 
 ModuleRegistry.registerModules([AllCommunityModule]);
 
@@ -21,6 +22,7 @@ function TechnicalDashboard() {
     const [hmpcData, setHmpcData] = useState();
     const [kycDetails, setKycDetails] = useState("");
     const [totalPendingData, setTotalPendingData] = useState("");
+    const [loading, setLoading] = useState(false);
 
     const handleActionClick = (rowData) => {
         setIsVisibleModal(true);
@@ -34,9 +36,8 @@ function TechnicalDashboard() {
         setIsVisibleModal(false);
     }
 
-
     const fetchHm_PcData = async (hm_pc_id) => {
-        console.log(hm_pc_id)
+        console.log(hm_pc_id);
         try {
             const response = await axios.get(
                 `${process.env.REACT_APP_BASE_URL2}/hmpc/gethmpcdatabyid/${hm_pc_id}`
@@ -47,16 +48,6 @@ function TechnicalDashboard() {
             console.error("Error fetching HM-PC data:", error);
         }
     };
-
-    // useEffect(() => {
-    //     axios.get(`${process.env.REACT_APP_BASE_URL2}/hmpccrm/gethmpccrmdatabyid/${hm_pc_id}`)
-    //         .then((res) => {
-    //             console.log(res.data.data);
-    //             setFormData(res.data.data[0]);
-    //         })
-    //         .catch((err) => console.error(err));
-    // }, [hm_pc_id]);
-
 
     const columnDefs = [
         { headerName: "HM-PC ID", field: "hm_pc_id" },
@@ -178,28 +169,48 @@ function TechnicalDashboard() {
         // editable: true,
     }), []);
 
+    // useEffect(() => {
+    //     axios
+    //         .get(`${process.env.REACT_APP_BASE_URL2}/hmpc/gethmpctechdata`)
+    //         .then((res) => {
+    //             console.log(res.data.data);
+    //             setRowData(res.data.data);
+    //             // setHm_pc_id(res.data.data.hm_pc_id);
+    //         })
+    //         .catch((err) => console.error(err));
+    // }, []);
+
+    //Total Pening API
+
     useEffect(() => {
-        axios
-            .get(`${process.env.REACT_APP_BASE_URL2}/hmpc/gethmpctechdata`)
-            .then((res) => {
+        const fetchData = async () => {
+            setLoading(true);
+            try {
+                const res = await axios.get(`${process.env.REACT_APP_BASE_URL2}/hmpc/gethmpctechdata`);
                 console.log(res.data.data);
                 setRowData(res.data.data);
+            } catch (err) {
+                console.error(err);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchData();
+    }, []);
+
+
+
+    useEffect(() => {
+        axios
+            .get(`${process.env.REACT_APP_BASE_URL2}/hmpc/gethmpcpendingdata`)
+            .then((res) => {
+                console.log(res.data.data);
+                setTotalPendingData(res.data.data.pending_tech_ver);
                 // setHm_pc_id(res.data.data.hm_pc_id);
             })
             .catch((err) => console.error(err));
     }, []);
-
-        //Total Pening API
-        useEffect(() => {
-            axios
-                .get(`${process.env.REACT_APP_BASE_URL2}/hmpc/gethmpcpendingdata`)
-                .then((res) => {
-                    console.log(res.data.data);
-                    setTotalPendingData(res.data.data.pending_tech_ver);
-                    // setHm_pc_id(res.data.data.hm_pc_id);
-                })
-                .catch((err) => console.error(err));
-        }, []);
 
 
     return (
@@ -214,13 +225,17 @@ function TechnicalDashboard() {
             <div className="title">
                 <p className="title_t">HM-PC Verification for Technical</p>
             </div>
+    
             <div className="total_pending">
                 <p className='pending_txt'>Total Pending : {totalPendingData} </p>
             </div>
-            {rowData.length != 0 ? (
+            {loading ? (
+                <div className="loading-indicator-container">
+                    <Commet color="red" size="medium" text="" textColor=""/>
+                </div>
+            ) : rowData.length > 0 ? (
                 <div className="ag-theme-alpine technical_table" style={{ height: '100vh', width: '100%' }}>
-
-                    {rowData && <AgGridReact
+                    <AgGridReact
                         rowData={rowData}
                         columnDefs={columnDefs}
                         defaultColDef={defaultColDef}
@@ -229,7 +244,7 @@ function TechnicalDashboard() {
                         animateRows={true}
                         pagination={true}
                         paginationPageSize={50}
-                    />}
+                    />
                 </div>
             ) : (
                 <div className="no-data-sec">
@@ -242,8 +257,8 @@ function TechnicalDashboard() {
                         </div>
                     </div>
                 </div>
-            )
-            }
+            )}
+
             {isVisibleModal && kycDetails === "HM" && (
                 <HM_Details_Modal
                     toggleContainerHmPc={hideModal}

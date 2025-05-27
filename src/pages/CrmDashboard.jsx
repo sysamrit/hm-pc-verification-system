@@ -10,6 +10,8 @@ import axios from 'axios';
 import PC_Details_Modal from '../components/PC_Details_Modal';
 import HM_Details_Modal from '../components/HM_Details_Modal';
 import noData from '../assets/no_data_2_amico.svg';
+import { Commet } from "react-loading-indicators";
+
 
 ModuleRegistry.registerModules([AllCommunityModule]);
 
@@ -21,6 +23,7 @@ function CrmDashboard() {
     const [hmpcData, setHmpcData] = useState();
     const [kycDetails, setKycDetails] = useState("");
     const [totalPendingData, setTotalPendingData] = useState("");
+    const [loading, setLoading] = useState(false);
 
     const handleActionClick = (rowData) => {
         setIsVisibleModal(true);
@@ -178,15 +181,33 @@ function CrmDashboard() {
         // editable: true,
     }), []);
 
+
+    // useEffect(() => {
+    //     axios
+    //         .get(`${process.env.REACT_APP_BASE_URL2}/hmpc/gethmpccrmdata`)
+    //         .then((res) => {
+    //             console.log(res.data.data);
+    //             setRowData(res.data.data);
+    //             // setHm_pc_id(res.data.data.hm_pc_id);
+    //         })
+    //         .catch((err) => console.error(err));
+    // }, []);
+
     useEffect(() => {
-        axios
-            .get(`${process.env.REACT_APP_BASE_URL2}/hmpc/gethmpccrmdata`)
-            .then((res) => {
+        const fetchData = async () => {
+            setLoading(true);
+            try {
+                const res = await axios.get(`${process.env.REACT_APP_BASE_URL2}/hmpc/gethmpccrmdata`);
                 console.log(res.data.data);
                 setRowData(res.data.data);
-                // setHm_pc_id(res.data.data.hm_pc_id);
-            })
-            .catch((err) => console.error(err));
+            } catch (err) {
+                console.error(err);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchData();
     }, []);
 
     //Total Pening API
@@ -217,7 +238,36 @@ function CrmDashboard() {
             <div className="total_pending">
                 <p className='pending_txt'>Total Pending : {totalPendingData} </p>
             </div>
-            {rowData.length != 0 ? (
+            {loading ? (
+                <div className="loading-indicator-container">
+                    <Commet color="red" size="medium" text="" textColor="" />
+                </div>
+            ) : rowData.length > 0 ? (
+                <div className="ag-theme-alpine crm_table" style={{ height: '100vh', width: '100%' }}>
+                    <AgGridReact
+                        rowData={rowData}
+                        columnDefs={columnDefs}
+                        defaultColDef={defaultColDef}
+                        theme="legacy"
+                        rowSelection="multiple"
+                        animateRows={true}
+                        pagination={true}
+                        paginationPageSize={50}
+                    />
+                </div>
+            ) : (
+                <div className="no-data-sec">
+                    <div className="container">
+                        <div className="no-data-found">
+                            <h3>No Data Found</h3>
+                            <a href="#" className="no-data-img">
+                                <img src={noData} alt="no-data-img" />
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            )}
+            {/* {rowData.length != 0 ? (
                 <div className="ag-theme-alpine crm_table" style={{ height: '100vh', width: '100%' }}>
 
                     {rowData && <AgGridReact
@@ -243,7 +293,7 @@ function CrmDashboard() {
                     </div>
                 </div>
             )
-            }
+            } */}
 
             {isVisibleModal && kycDetails === "HM" && (
                 <HM_Details_Modal

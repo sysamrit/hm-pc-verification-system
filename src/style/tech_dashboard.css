@@ -20,6 +20,9 @@
     --ag-header-foreground-color: white;
     text-align: center;
 }
+.commet-bounding-box .commet-loader{
+    margin-top: 200px;
+}
 
 .master_table{
     padding: 20px;
